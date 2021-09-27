@@ -30,7 +30,7 @@ export class AppService {
 
   getSkills(userId: string): Observable<SkillDto[]> {
     return this.http.get<SkillDto[]>(
-      this.API_USER_BASE_PATH + '/' + userId + this.API_USER_SKILLS_PATH
+      this.API_USER_BASE_PATH +  '/' + userId + this.API_USER_SKILLS_PATH
     );
   }
 }
