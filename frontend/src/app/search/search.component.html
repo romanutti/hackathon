@@ -1,1 +1,9 @@
-<p>search works!</p>
+<div>
+  <input
+    type="text"
+    placeholder="Search user"
+    class="form-control"
+    [ngModel]="userInput"
+    (ngModelChange)="onInputChange($event)"
+  />
+</div>
