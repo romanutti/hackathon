@@ -1,5 +1,12 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BadgeDto } from 'src/model/BadgeDto';
 import { SkillDto } from 'src/model/SkillDto';
 import { UserError } from 'src/model/user/UserError';
@@ -13,14 +20,17 @@ import { AppService } from '../app.service';
 })
 export class UserComponent implements OnInit, OnChanges {
   @Input()
-  userId: string = "";
+  userId: string = '';
 
   userInfo: UserInfoDto | undefined;
   badges: BadgeDto[] | undefined;
   skills: SkillDto[] | undefined;
   httpError: UserError = {};
 
-  constructor(private readonly appService: AppService) {}
+  constructor(
+    private readonly appService: AppService,
+    private modalService: NgbModal
+  ) {}
 
   ngOnInit(): void {
     this.loadUserInfo();
@@ -30,7 +40,7 @@ export class UserComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     this.userId = changes.userId.currentValue;
-    this.loadUserInfo()
+    this.loadUserInfo();
   }
 
   loadUserInfo() {
@@ -64,5 +74,14 @@ export class UserComponent implements OnInit, OnChanges {
         this.httpError.skillsError = error.status;
       },
     });
+  }
+
+  open(content: any) {
+    this.modalService
+      .open(content, { ariaLabelledBy: 'modal-basic-title' })
+      .result.then(
+        (result) => {},
+        (reason) => {}
+      );
   }
 }
