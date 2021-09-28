@@ -1,9 +1,10 @@
 <div class="search-bar">
-  <input
-    type="text"
-    placeholder="Search employee"
-    class="form-control search-bar-field"
-    [ngModel]="userInput"
-    (ngModelChange)="onInputChange($event)"
-  />
+  <form [formGroup]="search" >
+    <input
+      type="text"
+      placeholder="Search employee"
+      class="form-control search-bar-field"
+      formControlName="searchTerm"
+    />
+  </form>
 </div>
