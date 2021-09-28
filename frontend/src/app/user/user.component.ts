@@ -49,6 +49,7 @@ export class UserComponent implements OnInit, OnChanges {
     this.appService.getUserInfo(this.userId).subscribe({
       next: (userInfo) => {
         this.userInfo = userInfo;
+        this.httpError.userInfoError = undefined;
       },
       error: (error: HttpErrorResponse) => {
         this.httpError.userInfoError = error.status;
@@ -60,6 +61,7 @@ export class UserComponent implements OnInit, OnChanges {
     this.appService.getBadges(this.userId).subscribe({
       next: (badges) => {
         this.badges = badges;
+        this.httpError.badgesError = undefined;
       },
       error: (error: HttpErrorResponse) => {
         this.httpError.badgesError = error.status;
@@ -71,6 +73,7 @@ export class UserComponent implements OnInit, OnChanges {
     this.appService.getSkills(this.userId).subscribe({
       next: (skills) => {
         this.skills = skills;
+        this.httpError.skillsError = undefined;
       },
       error: (error: HttpErrorResponse) => {
         this.httpError.skillsError = error.status;
