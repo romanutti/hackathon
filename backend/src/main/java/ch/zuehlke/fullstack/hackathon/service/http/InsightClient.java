@@ -1,4 +1,4 @@
-package ch.zuehlke.fullstack.hackathon.service;
+package ch.zuehlke.fullstack.hackathon.service.http;
 
 import ch.zuehlke.fullstack.hackathon.model.Skill;
 import ch.zuehlke.fullstack.hackathon.model.TrainingResponse;
