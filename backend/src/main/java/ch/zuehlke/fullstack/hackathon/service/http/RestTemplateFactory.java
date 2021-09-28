@@ -1,4 +1,4 @@
-package ch.zuehlke.fullstack.hackathon.service;
+package ch.zuehlke.fullstack.hackathon.service.http;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
