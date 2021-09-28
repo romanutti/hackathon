@@ -52,7 +52,7 @@ describe('AppService', () => {
       const userId = 'mrom';
       const badgeData: BadgeDto[] = [
         {
-          iconId: 'hackathon',
+          id: 'hackathon',
           description: 'Zuehlke Hackathony',
         },
       ];

@@ -1,5 +1,4 @@
 export interface BadgeDto {
-    iconId: string;
-    description: string;
-  }
-  
+  id: string;
+  description: string;
+}

@@ -26,7 +26,7 @@ describe('UserComponent', () => {
   };
   const badgesData: BadgeDto[] = [
     {
-      iconId: 'hackathon',
+      id: 'hackathon',
       description: 'Zuehlke Hackathony',
     },
   ];
