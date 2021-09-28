@@ -7,7 +7,7 @@ import { of } from 'rxjs';
 describe('AppService', () => {
   let httpClientSpy: { get: jasmine.Spy };
   let appService: AppService;
-  const API_USER_BASE_PATH = 'api/user/';
+  const API_USER_BASE_PATH = 'api/user';
 
   beforeEach(() => {
     httpClientSpy = jasmine.createSpyObj('HttpClient', ['get']);
@@ -40,7 +40,7 @@ describe('AppService', () => {
       }, done.fail);
 
       expect(httpClientSpy.get).toHaveBeenCalledOnceWith(
-        API_USER_BASE_PATH + userId + API_USER_SEARCH_PATH
+        API_USER_BASE_PATH + API_USER_SEARCH_PATH + '?term=' + userId
       );
     });
   });
@@ -66,7 +66,7 @@ describe('AppService', () => {
       }, done.fail);
 
       expect(httpClientSpy.get).toHaveBeenCalledOnceWith(
-        API_USER_BASE_PATH + userId + API_USER_BADGES_PATH
+        API_USER_BASE_PATH + '/' + userId + API_USER_BADGES_PATH
       );
     });
   });
@@ -96,7 +96,7 @@ describe('AppService', () => {
       }, done.fail);
 
       expect(httpClientSpy.get).toHaveBeenCalledOnceWith(
-        API_USER_BASE_PATH + userId + API_USER_SKILLS_PATH
+        API_USER_BASE_PATH + '/' + userId + API_USER_SKILLS_PATH
       );
     });
   });
