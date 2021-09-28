@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { UserInfoDto } from 'src/model/UserInfoDto';
 import { BadgeDto } from 'src/model/BadgeDto';
 import { SkillDto } from 'src/model/SkillDto';
+import { Levels } from 'src/model/rating/Levels';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +14,7 @@ export class AppService {
   private readonly API_USER_SEARCH_PATH = '/search';
   private readonly API_USER_BADGES_PATH = '/badges';
   private readonly API_USER_SKILLS_PATH = '/skills';
+  private readonly API_USER_RATE_PATH = '/rating';
 
   constructor(private http: HttpClient) {}
 
@@ -30,7 +32,19 @@ export class AppService {
 
   getSkills(userId: string): Observable<SkillDto[]> {
     return this.http.get<SkillDto[]>(
-      this.API_USER_BASE_PATH +  '/' + userId + this.API_USER_SKILLS_PATH
+      this.API_USER_BASE_PATH + '/' + userId + this.API_USER_SKILLS_PATH
+    );
+  }
+
+  rateSkills(userId: string, skillId: number, level: Levels): Observable<null> {
+    return this.http.post<null>(
+      this.API_USER_BASE_PATH +
+        '/' +
+        userId +
+        this.API_USER_RATE_PATH +
+        '/' +
+        skillId,
+      { level: level }
     );
   }
 }

@@ -13,7 +13,11 @@
         <div class="col">
           <h1>{{ userInfo.firstName + " " + userInfo.lastName }}</h1>
           <p>{{ userInfo.jobTitle }}</p>
-          <p><a href="#" class="btn btn-success btn">Rate me</a></p>
+          <p>
+            <a href="#" class="btn btn-success btn" (click)="open(ratingmodal)"
+              >Rate me</a
+            >
+          </p>
         </div>
       </div>
       <hr class="m4-4" />
@@ -39,4 +43,8 @@
   <div class="alert alert-light" role="alert">
     There was an issue loading your user data. Please try it later...
   </div>
+</ng-template>
+
+<ng-template #ratingmodal let-modal>
+  <app-rating *ngIf="userInfo" [userInfo]="userInfo"></app-rating>
 </ng-template>

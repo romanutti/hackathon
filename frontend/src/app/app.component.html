@@ -1,12 +1,6 @@
 <div class="app-container">
-  <img
-    src="/assets/zuehlke_logo.jpg"
-    alt="zuehlke logo"
-    class="logo"
-  >
+  <img src="/assets/zuehlke_logo.jpg" alt="zuehlke logo" class="logo" />
   <h1>Insight Vote</h1>
   <app-search (foundUser)="onUserFound($event)"></app-search>
-  <app-user [userId]="userId"></app-user>
-  <app-rating></app-rating>
+  <app-user *ngIf="userInfo" [userId]="userInfo.id"></app-user>
 </div>
-

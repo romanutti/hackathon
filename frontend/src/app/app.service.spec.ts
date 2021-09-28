@@ -3,14 +3,15 @@ import { UserInfoDto } from 'src/model/UserInfoDto';
 import { BadgeDto } from 'src/model/BadgeDto';
 import { SkillDto } from 'src/model/SkillDto';
 import { of } from 'rxjs';
+import { Levels } from 'src/model/rating/Levels';
 
 describe('AppService', () => {
-  let httpClientSpy: { get: jasmine.Spy };
+  let httpClientSpy: { get: jasmine.Spy; post: jasmine.Spy };
   let appService: AppService;
   const API_USER_BASE_PATH = 'api/user';
 
   beforeEach(() => {
-    httpClientSpy = jasmine.createSpyObj('HttpClient', ['get']);
+    httpClientSpy = jasmine.createSpyObj('HttpClient', ['get', 'post']);
     appService = new AppService(httpClientSpy as any);
   });
 
@@ -97,6 +98,27 @@ describe('AppService', () => {
 
       expect(httpClientSpy.get).toHaveBeenCalledOnceWith(
         API_USER_BASE_PATH + '/' + userId + API_USER_SKILLS_PATH
+      );
+    });
+  });
+
+  describe('rateSkills', () => {
+    const API_USER_RATE_PATH = '/rating';
+
+    it('should return ok ', (done: DoneFn) => {
+      const userId = 'mrom';
+      const skillId = 89;
+
+      httpClientSpy.post.and.returnValue(of(null));
+
+      const response$ = appService.rateSkills(userId, skillId, Levels.BEGINNER);
+      response$.subscribe(() => {
+        done();
+      }, done.fail);
+
+      expect(httpClientSpy.post).toHaveBeenCalledOnceWith(
+        API_USER_BASE_PATH + '/' + userId + API_USER_RATE_PATH + '/' + skillId,
+        { level: Levels.BEGINNER }
       );
     });
   });
