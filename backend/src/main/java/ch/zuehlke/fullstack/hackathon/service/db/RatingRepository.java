@@ -1,4 +1,4 @@
-package ch.zuehlke.fullstack.hackathon.service;
+package ch.zuehlke.fullstack.hackathon.service.db;
 
 import ch.zuehlke.fullstack.hackathon.model.Rating;
 import org.springframework.data.mongodb.core.MongoTemplate;
