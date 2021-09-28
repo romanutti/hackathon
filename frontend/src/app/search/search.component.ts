@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Output, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from "rxjs";
 import {UserInfoDto} from "../../model/UserInfoDto";
 import {HttpErrorResponse} from "@angular/common/http";
@@ -13,21 +13,22 @@ import {SearchError} from "../../model/search/SearchError";
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit, OnDestroy {
-  private onInputChange$: Subscription | undefined;
+  onInputChange$: Subscription | undefined;
   httpError: SearchError = {};
+  debounceMilliseconds: number = 300;
 
   search: FormGroup = new FormGroup({
     searchTerm: new FormControl()
   });
 
   @Output()
-  foundUser = new EventEmitter<UserInfoDto>();
+  foundUser = new EventEmitter<string>();
 
   constructor(private readonly appService: AppService) { }
 
-  ngOnInit(){
+  ngOnInit() {
     this.onInputChange$ = this.search.valueChanges
-      .pipe(debounceTime(300))
+      .pipe(debounceTime(this.debounceMilliseconds))
       .subscribe(data =>
         this.searchForTerm(data.searchTerm));
   }
@@ -38,11 +39,11 @@ export class SearchComponent implements OnInit, OnDestroy {
     }
   }
 
-  searchForTerm(searchTerm:string) {
+  searchForTerm(searchTerm:string): void {
     this.appService.getUserInfo(searchTerm)
       .subscribe({
-        next: (userInfo) => {
-          this.foundUser.emit(userInfo);
+        next: (userInfo: UserInfoDto) => {
+          this.foundUser.emit(userInfo.id);
         },
         error: (error: HttpErrorResponse) => {
           this.httpError.searchError = error.status;
