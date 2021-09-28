@@ -5,9 +5,12 @@ import ch.zuehlke.fullstack.hackathon.model.LevelDto;
 import ch.zuehlke.fullstack.hackathon.model.Skill;
 import ch.zuehlke.fullstack.hackathon.model.UserInfo;
 import ch.zuehlke.fullstack.hackathon.service.BadgeService;
-import ch.zuehlke.fullstack.hackathon.service.InsightClient;
 import ch.zuehlke.fullstack.hackathon.service.RatingService;
 import ch.zuehlke.fullstack.hackathon.service.SkillService;
+import ch.zuehlke.fullstack.hackathon.service.http.InsightClient;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -34,6 +37,11 @@ public class UserController {
         this.ratingService = ratingService;
     }
 
+    @ApiOperation(value = "UserInfo")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully returned userInfo"),
+            @ApiResponse(code = 404, message = "If no matching user has been found"),
+            @ApiResponse(code = 500, message = "If something fails internally")})
     @GetMapping("/search")
     public ResponseEntity<UserInfo> getUserInfo(@RequestParam String term) {
         UserInfo result;
@@ -50,6 +58,11 @@ public class UserController {
         }
     }
 
+    @ApiOperation(value = "List of badges")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully returned badges"),
+            @ApiResponse(code = 404, message = "If no badges have been found"),
+            @ApiResponse(code = 500, message = "If something fails internally")})
     @GetMapping("/{userId}/badges")
     public ResponseEntity<List<Badge>> getBadges(@PathVariable String userId) {
         try {
@@ -64,6 +77,11 @@ public class UserController {
         }
     }
 
+    @ApiOperation(value = "List of skills")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully returned skills"),
+            @ApiResponse(code = 404, message = "If no skills have been found"),
+            @ApiResponse(code = 500, message = "If something fails internally")})
     @GetMapping("/{userId}/skills")
     public ResponseEntity<List<Skill>> getSkills(@PathVariable String userId) {
         try {
@@ -78,6 +96,10 @@ public class UserController {
         }
     }
 
+    @ApiOperation(value = "Submit a skill rating")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully updated rating"),
+            @ApiResponse(code = 500, message = "If something fails internally")})
     @PostMapping("/{userId}/rating/{skillId}")
     public ResponseEntity updateSkill(@PathVariable String userId, @PathVariable long skillId,
                                       @RequestBody LevelDto dto) {

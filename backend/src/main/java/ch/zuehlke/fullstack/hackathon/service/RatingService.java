@@ -2,6 +2,7 @@ package ch.zuehlke.fullstack.hackathon.service;
 
 import ch.zuehlke.fullstack.hackathon.model.Level;
 import ch.zuehlke.fullstack.hackathon.model.Rating;
+import ch.zuehlke.fullstack.hackathon.service.db.RatingRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
