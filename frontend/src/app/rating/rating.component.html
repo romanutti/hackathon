@@ -1,0 +1,25 @@
+<div class="jumbotron">
+  <div class="container-fluid">
+    <h1>Marco Romanutti</h1>
+    <hr />
+
+    <div class="container">
+      <div class="row">
+        <label for="typeahead-basic">Search for a skill:</label>
+        <input
+          id="typeahead-basic"
+          type="text"
+          class="form-control"
+          [(ngModel)]="model"
+          [ngbTypeahead]="search"
+        />
+        <hr />
+        <h4>Model: {{ model | json }}</h4>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">b</div>
+        <div class="col-sm-6">c</div>
+      </div>
+    </div>
+  </div>
+</div>
