@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import { BadgeDto } from 'src/model/BadgeDto';
 import { SkillDto } from 'src/model/SkillDto';
 import { UserError } from 'src/model/user/UserError';
@@ -11,8 +11,10 @@ import { AppService } from '../app.service';
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss'],
 })
-export class UserComponent implements OnInit {
-  userId = 'mrom'; // TODO: Get userId
+export class UserComponent implements OnInit, OnChanges {
+  @Input()
+  userId: string = "";
+
   userInfo: UserInfoDto | undefined;
   badges: BadgeDto[] | undefined;
   skills: SkillDto[] | undefined;
@@ -24,6 +26,11 @@ export class UserComponent implements OnInit {
     this.loadUserInfo();
     this.loadBadges();
     this.loadSkills();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    this.userId = changes.userId.currentValue;
+    this.loadUserInfo()
   }
 
   loadUserInfo() {
