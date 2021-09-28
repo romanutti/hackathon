@@ -10,6 +10,7 @@ import ch.zuehlke.fullstack.hackathon.service.RatingService;
 import ch.zuehlke.fullstack.hackathon.service.SkillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -82,6 +83,16 @@ public class UserController {
                                       @RequestBody LevelDto dto) {
         this.ratingService.addRating(userId, skillId, dto.getLevel());
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping(value = "/pictures/{pictureId}", produces = MediaType.IMAGE_JPEG_VALUE)
+    public ResponseEntity<byte[]> getPicture(@PathVariable String pictureId) {
+        try {
+            byte[] response = insightClient.getPicture(pictureId);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (Exception exception) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 }
