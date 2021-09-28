@@ -13,6 +13,7 @@
         <div class="col">
           <h1>{{ userInfo.firstName + " " + userInfo.lastName }}</h1>
           <p>{{ userInfo.jobTitle }}</p>
+          {{userInfo.pictureId}}
           <p><a href="#" class="btn btn-success btn-lg">Rate me</a></p>
         </div>
       </div>
@@ -29,6 +30,28 @@
               />
             </div>
           </ng-container>
+        </div>
+      </div>
+      <hr class="m4-4" />
+
+      <div class="row">
+        <div class="row">
+          <div class="skill-podium">
+            <ng-container *ngFor="let skill of skills">
+            <span class="skill-podium-step">
+              <span
+                class="skill-podium-step-value-wrapper"
+                [style.height]="(skill.rank * 3) + 'rem'">
+                <span class="skill-podium-step-value">
+                  {{skill.name}}
+                </span>
+              </span>
+              <span class="skill-podium-step-block">
+                {{skill.rank}}
+              </span>
+            </span>
+            </ng-container>
+          </div>
         </div>
       </div>
     </div>

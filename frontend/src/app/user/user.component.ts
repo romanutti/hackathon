@@ -29,8 +29,11 @@ export class UserComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    this.userId = changes.userId.currentValue;
-    this.loadUserInfo()
+    const newUserId: string = changes.userId.currentValue;
+    if(newUserId) {
+      this.userId = newUserId;
+      this.loadUserInfo()
+    }
   }
 
   loadUserInfo() {
@@ -55,10 +58,19 @@ export class UserComponent implements OnInit, OnChanges {
     });
   }
 
+  sortSkills(skills: SkillDto[]): SkillDto[] {
+    let sortedSkills = skills.sort((a, b) => a.rank - b.rank);
+    if (skills.length > 3) {
+      sortedSkills = sortedSkills.splice(0, 3);
+    }
+    return sortedSkills;
+  }
+
   loadSkills() {
     this.appService.getSkills(this.userId).subscribe({
       next: (skills) => {
-        this.skills = skills;
+        const sortedSkills: SkillDto[] = this.sortSkills(skills);
+        this.skills = sortedSkills;
       },
       error: (error: HttpErrorResponse) => {
         this.httpError.skillsError = error.status;

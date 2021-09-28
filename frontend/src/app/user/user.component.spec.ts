@@ -129,4 +129,54 @@ describe('UserComponent', () => {
       expect(component.httpError.skillsError).toBeUndefined();
     });
   });
+
+  describe('sort skills', () => {
+    const skills = [
+      {
+        skillId: 123,
+        description: "some skill",
+        name: "skill",
+        pictureId: "123",
+        rank: 2,
+      },
+      {
+        skillId: 123,
+        description: "some skill",
+        name: "skill",
+        pictureId: "123",
+        rank: 4,
+      },
+      {
+        skillId: 123,
+        description: "some skill",
+        name: "skill",
+        pictureId: "123",
+        rank: 3,
+      },
+      {
+        skillId: 123,
+        description: "some skill",
+        name: "skill",
+        pictureId: "123",
+        rank: 1,
+      },
+    ]
+
+    it('should sort the skills by rank', () => {
+      let skillsArray = skills;
+
+      skillsArray = component.sortSkills(skillsArray);
+
+      expect([skillsArray[0].rank, skillsArray[1].rank, skillsArray[2].rank])
+        .toEqual([1,2,3]);
+    });
+
+    it('should shrink the skills array to 3 values', () => {
+      let skillsArray = skills;
+
+      skillsArray = component.sortSkills(skillsArray);
+
+      expect(skillsArray.length).toEqual(3);
+    });
+  });
 });
