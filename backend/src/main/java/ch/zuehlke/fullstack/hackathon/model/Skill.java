@@ -12,7 +12,6 @@ public class Skill {
     private final String name;
     // todo: find out how to map this
     private final long pictureId = 1;
-    // todo: calculate rank via trainings
     private final Level level;
     private long points = 0;
 
@@ -47,7 +46,7 @@ public class Skill {
         return pictureId;
     }
 
-    @JsonIgnore
+    @JsonProperty("points")
     public long getPoints() {
         return points;
     }
@@ -56,7 +55,8 @@ public class Skill {
     public void addPoints(long points) {
         this.points += points;
     }
-    
+
+    @JsonIgnore
     public Level getLevel() {
         return level;
     }
