@@ -21,7 +21,7 @@ public class SkillService {
         this.ratingService = ratingService;
     }
 
-    public List<Skill> getSkills(String userId) {
+    public List<Skill> getSkillsWithCalculatedPoints(String userId) {
         HashMap<Long, Skill> skillMap = new HashMap<>();
         
         List<Skill> insightSkills = insightClient.getSkills(userId);
@@ -35,6 +35,8 @@ public class SkillService {
                 skillMap.replace(rating.getSkillId(), existingSkill);
             }
         }
+        
+        // add training: each training skill will be rated with +5
         
         return new ArrayList<>(skillMap.values());
     }

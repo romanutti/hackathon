@@ -84,7 +84,7 @@ public class UserController {
     @GetMapping("/{userId}/skills")
     public ResponseEntity<List<Skill>> getSkills(@PathVariable String userId) {
         try {
-            List<Skill> response = this.skillService.getSkills(userId);
+            List<Skill> response = this.skillService.getSkillsWithCalculatedPoints(userId);
             if (response != null && response.size() > 0) {
                 return new ResponseEntity<>(response, HttpStatus.OK);
             } else {
