@@ -1,15 +1,61 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { BadgeDto } from 'src/model/BadgeDto';
+import { SkillDto } from 'src/model/SkillDto';
+import { UserError } from 'src/model/user/UserError';
+import { UserInfoDto } from 'src/model/UserInfoDto';
+import { AppService } from '../app.service';
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
-  styleUrls: ['./user.component.scss']
+  styleUrls: ['./user.component.scss'],
 })
 export class UserComponent implements OnInit {
+  userId = 'mrom'; // TODO: Get userId
+  userInfo: UserInfoDto | undefined;
+  badges: BadgeDto[] | undefined;
+  skills: SkillDto[] | undefined;
+  httpError: UserError = {};
 
-  constructor() { }
+  constructor(private readonly appService: AppService) {}
 
   ngOnInit(): void {
+    this.loadUserInfo();
+    this.loadBadges();
+    this.loadSkills();
   }
 
+  loadUserInfo() {
+    this.appService.getUserInfo(this.userId).subscribe({
+      next: (userInfo) => {
+        this.userInfo = userInfo;
+      },
+      error: (error: HttpErrorResponse) => {
+        this.httpError.userInfoError = error.status;
+      },
+    });
+  }
+
+  loadBadges() {
+    this.appService.getBadges(this.userId).subscribe({
+      next: (badges) => {
+        this.badges = badges;
+      },
+      error: (error: HttpErrorResponse) => {
+        this.httpError.badgesError = error.status;
+      },
+    });
+  }
+
+  loadSkills() {
+    this.appService.getSkills(this.userId).subscribe({
+      next: (skills) => {
+        this.skills = skills;
+      },
+      error: (error: HttpErrorResponse) => {
+        this.httpError.skillsError = error.status;
+      },
+    });
+  }
 }
