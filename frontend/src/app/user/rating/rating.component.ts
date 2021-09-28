@@ -16,15 +16,8 @@ import { AppService } from '../../app.service';
 })
 export class RatingComponent implements OnInit {
   skills: SkillDto[] = [];
-  skill: SkillDto = {
-    skillId: 0,
-    description: '',
-    name: '',
-    pictureId: '',
-    rank: 0,
-  };
-
-  level: Levels = Levels.BEGINNER;
+  skill: SkillDto | undefined;
+  level: Levels | undefined;
 
   @Input()
   userInfo: UserInfoDto = {
@@ -65,12 +58,14 @@ export class RatingComponent implements OnInit {
   formatter = (x: { name: string }) => x.name;
 
   rateSkills() {
-    this.appService
-      .rateSkills(this.userInfo.id, this.skill.skillId, this.level)
-      .subscribe({
-        error: (error: HttpErrorResponse) => {
-          this.httpError.ratingError = error.status;
-        },
-      });
+    if (this.skill && this.level) {
+      this.appService
+        .rateSkills(this.userInfo.id, this.skill.skillId, this.level)
+        .subscribe({
+          error: (error: HttpErrorResponse) => {
+            this.httpError.ratingError = error.status;
+          },
+        });
+    }
   }
 }

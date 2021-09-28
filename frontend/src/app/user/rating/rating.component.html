@@ -60,7 +60,13 @@
   </div>
 </div>
 <div class="modal-footer">
-  <a class="btn btn-success btn" (click)="rateSkills()">Submit rating</a>
+  <button
+    class="btn btn-success btn"
+    (click)="rateSkills()"
+    [disabled]="!skill || !level"
+  >
+    Submit rating
+  </button>
 </div>
 
 <ng-template #rt let-r="result" let-t="term">

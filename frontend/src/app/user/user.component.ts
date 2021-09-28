@@ -41,6 +41,8 @@ export class UserComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     this.userId = changes.userId.currentValue;
     this.loadUserInfo();
+    this.loadBadges();
+    this.loadSkills();
   }
 
   loadUserInfo() {
