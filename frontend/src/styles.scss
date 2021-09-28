@@ -12,7 +12,8 @@ body {
 
 .app-container {
   width: 100vw;
-  height: 100vh;
+  height: 100%;
+  margin-top: 4rem;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -20,8 +21,8 @@ body {
 
 .logo {
   position: absolute;
-  width: 100px;
-  height: 100px;
+  width: clamp(3rem, 10vw, 100px);
+  height: clamp(3rem, 10vw, 100px);
   left: 1rem;
   top: 1rem;
 }
