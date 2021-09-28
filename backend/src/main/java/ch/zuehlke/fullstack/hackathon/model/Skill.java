@@ -14,7 +14,6 @@ public class Skill {
     private final long pictureId = 1;
     // todo: calculate rank via trainings
     private final Level level;
-    private int rank;
     private long points = 0;
 
     @JsonCreator
@@ -46,15 +45,6 @@ public class Skill {
     @JsonProperty("pictureId")
     public long getPictureId() {
         return pictureId;
-    }
-
-    @JsonProperty("rank")
-    public int getRank() {
-        return rank;
-    }
-
-    public void setRank(int rank) {
-        this.rank = rank;
     }
 
     @JsonIgnore
