@@ -20,11 +20,11 @@ public class Skill {
     public Skill(@JsonProperty("Id") long skillId,
                  @JsonProperty("ShortDescription") String description,
                  @JsonProperty("Name") String name,
-                 @JsonProperty("ExperienceText") Level level) {
+                 @JsonProperty("ExperienceText") String text) {
         this.skillId = skillId;
         this.description = description;
         this.name = name;
-        this.level = level;
+        this.level = Level.fromString(text);
     }
 
     @JsonProperty("skillId")
