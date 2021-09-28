@@ -1,1 +1,10 @@
-<p>search works!</p>
+<div class="search-bar">
+  <form [formGroup]="search" >
+    <input
+      type="text"
+      placeholder="Search employee"
+      class="form-control search-bar-field"
+      formControlName="searchTerm"
+    />
+  </form>
+</div>
