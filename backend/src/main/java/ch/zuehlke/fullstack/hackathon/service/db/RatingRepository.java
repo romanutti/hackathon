@@ -38,5 +38,4 @@ public class RatingRepository {
             mongoTemplate.save(new Rating(userId, skillId, additionalPoints));
         }
     }
-    
 }
