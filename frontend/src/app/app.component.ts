@@ -7,7 +7,6 @@ import { UserInfoDto } from 'src/model/UserInfoDto';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'frontend';
   userInfo!: UserInfoDto;
 
   onUserFound(userInfo: UserInfoDto) {
