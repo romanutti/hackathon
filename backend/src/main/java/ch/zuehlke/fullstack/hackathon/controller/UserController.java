@@ -1,10 +1,12 @@
 package ch.zuehlke.fullstack.hackathon.controller;
 
 import ch.zuehlke.fullstack.hackathon.model.Badge;
+import ch.zuehlke.fullstack.hackathon.model.LevelDto;
 import ch.zuehlke.fullstack.hackathon.model.Skill;
 import ch.zuehlke.fullstack.hackathon.model.UserInfo;
 import ch.zuehlke.fullstack.hackathon.service.BadgeService;
 import ch.zuehlke.fullstack.hackathon.service.InsightClient;
+import ch.zuehlke.fullstack.hackathon.service.RatingService;
 import ch.zuehlke.fullstack.hackathon.service.SkillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,12 +22,15 @@ public class UserController {
     private final InsightClient insightClient;
     private final BadgeService badgeService;
     private final SkillService skillService;
+    private final RatingService ratingService;
 
     @Autowired
-    public UserController(InsightClient insightClient, BadgeService badgeService, SkillService skillService) {
+    public UserController(InsightClient insightClient, BadgeService badgeService,
+                          SkillService skillService, RatingService ratingService) {
         this.insightClient = insightClient;
         this.badgeService = badgeService;
         this.skillService = skillService;
+        this.ratingService = ratingService;
     }
 
     @GetMapping("/search")
@@ -70,6 +75,13 @@ public class UserController {
         } catch (Exception exception) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @PostMapping("/{userId}/rating/{skillId}")
+    public ResponseEntity updateSkill(@PathVariable String userId, @PathVariable long skillId,
+                                      @RequestBody LevelDto dto) {
+        this.ratingService.addRating(userId, skillId, dto.getLevel());
+        return ResponseEntity.ok().build();
     }
 
 }
