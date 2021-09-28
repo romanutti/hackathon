@@ -1,6 +1,8 @@
 <div class="app-container">
   <img src="/assets/zuehlke_logo.jpg" alt="zuehlke logo" class="logo" />
-  <h1>Insight Vote</h1>
+  <h1 style="color: green">JustAnotherInsightFeature</h1>
+
+  <p>Receive badges for being awesome!</p>
   <app-search (foundUser)="onUserFound($event)"></app-search>
   <app-user *ngIf="userInfo" [userId]="userInfo.id"></app-user>
 </div>
