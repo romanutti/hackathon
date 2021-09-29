@@ -2,10 +2,12 @@
   <div class="jumbotron">
     <div class="container-fluid">
       <div class="row">
-        <h1>Rate {{ userInfo.firstName }}!</h1>
+        <h1>{{ "rating.title" | translate: { name: userInfo.firstName } }}</h1>
       </div>
       <div class="row">
-        <label for="typeahead-basic">Search for a skill:</label>
+        <label for="typeahead-basic">{{
+          "rating.search.text" | translate
+        }}</label>
         <input
           id="typeahead-basic"
           type="text"
@@ -56,17 +58,17 @@
           </label>
         </div>
       </form>
+      <div class="modal-footer">
+        <button
+          class="btn btn-success btn"
+          (click)="rateSkills()"
+          [disabled]="!skill || !level"
+        >
+          {{ "rating.button.text" | translate }}
+        </button>
+      </div>
     </div>
   </div>
-</div>
-<div class="modal-footer">
-  <button
-    class="btn btn-success btn"
-    (click)="rateSkills()"
-    [disabled]="!skill || !level"
-  >
-    Submit rating
-  </button>
 </div>
 
 <ng-template #rt let-r="result" let-t="term">
