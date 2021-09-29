@@ -2,10 +2,7 @@
   <div class="container-fluid">
     <div *ngIf="userInfo; else userError" class="container">
       <p>
-        <a
-        href="#"
-        class="btn btn-light btn-lg rate-button"
-        (click)="open(ratingmodal)">
+        <a href="#" class="btn btn-light btn-lg rate-button" (click)="open()">
           {{ "user.rate-button.text" | translate }}
         </a>
       </p>
@@ -14,7 +11,7 @@
           <img
             class="rounded-circle"
             alt="profile-picture"
-            src="/api/user/pictures/{{userInfo.pictureId}}"
+            src="/api/user/pictures/{{ userInfo.pictureId }}"
             width="200"
             height="200"
           />
@@ -25,13 +22,16 @@
         </div>
       </div>
 
-      <div class="badge-container" *ngIf="!httpError.badgesError; else badgesError">
+      <div
+        class="badge-container"
+        *ngIf="!httpError.badgesError; else badgesError"
+      >
         <ng-container *ngFor="let badge of badges">
           <img
             alt="badge"
             class="badge-image"
             src="../../assets/images/badges/badge-{{ badge.id }}.png"
-            ngbTooltip="{{badge.description}}"
+            ngbTooltip="{{ badge.description }}"
           />
         </ng-container>
       </div>
@@ -42,31 +42,25 @@
           <div class="skill-podium">
             <ng-container *ngFor="let skill of skills">
               <span class="skill-podium-step">
-                <span
-                  class="skill-podium-step-value-wrapper">
+                <span class="skill-podium-step-value-wrapper">
                   <span class="skill-podium-step-value">
-                    {{skill.name}}
+                    {{ skill.name }}
                   </span>
                 </span>
-                <span class="skill-podium-step-block" [style.height]="(5 / skill.rank)  + 'rem'">
-                  {{skill.rank}}
+                <span
+                  class="skill-podium-step-block"
+                  [style.height]="5 / skill.rank + 'rem'"
+                >
+                  {{ skill.rank }}
                 </span>
               </span>
             </ng-container>
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </div>
-
-<ng-template #ratingmodal let-modal>
-  <app-rating
-    *ngIf="!httpError.skillsError && userInfo; else skillsError"
-    [userInfo]="userInfo"
-  ></app-rating>
-</ng-template>
 
 <ng-template #userError>
   <div class="alert alert-light" role="alert">

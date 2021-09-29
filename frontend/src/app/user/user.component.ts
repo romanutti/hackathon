@@ -1,16 +1,12 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import {
-  Component,
-  Input,
-  OnChanges,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BadgeDto } from 'src/model/BadgeDto';
 import { SkillDto } from 'src/model/SkillDto';
 import { UserError } from 'src/model/user/UserError';
 import { UserInfoDto } from 'src/model/UserInfoDto';
 import { AppService } from '../app.service';
+import { RatingComponent } from './rating/rating.component';
 
 @Component({
   selector: 'app-user',
@@ -66,14 +62,16 @@ export class UserComponent implements OnChanges {
   }
 
   sortSkills(skills: SkillDto[]): SkillDto[] {
-    let sortedSkills: SkillDto[] = [...skills.sort((a, b) => b.points - a.points)];
+    let sortedSkills: SkillDto[] = [
+      ...skills.sort((a, b) => b.points - a.points),
+    ];
     if (skills.length > 3) {
       sortedSkills = sortedSkills.splice(0, 3);
     }
 
     sortedSkills = sortedSkills.map((skill, index) => {
-        skill.rank = index + 1;
-        return skill;
+      skill.rank = index + 1;
+      return skill;
     });
 
     const firstValue = sortedSkills[0];
@@ -98,12 +96,8 @@ export class UserComponent implements OnChanges {
     }
   }
 
-  open(content: any) {
-    this.modalService
-      .open(content, { ariaLabelledBy: 'modal-basic-title' })
-      .result.then(
-        (result) => {},
-        (reason) => {}
-      );
+  open() {
+    const modalRef = this.modalService.open(RatingComponent);
+    modalRef.componentInstance.userInfo = this.userInfo;
   }
 }
