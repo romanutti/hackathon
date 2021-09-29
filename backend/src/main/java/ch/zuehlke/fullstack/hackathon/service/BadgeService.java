@@ -42,7 +42,7 @@ public class BadgeService {
         AtomicInteger webCount = new AtomicInteger();
 
         // trainings
-        List<Training> trainingResponseList = trainingService.getTrainingsFromLastTwoYears(userId);
+        List<Training> trainingResponseList = trainingService.getTrainingsFromCurrentAndLastYear(userId);
         trainingResponseList.forEach(training -> {
             Optional<Badge> matchingBadge = computeMatchingBadge(training);
             matchingBadge.ifPresent(earnedBadges::add);

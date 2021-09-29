@@ -18,15 +18,15 @@ public class TrainingService {
         this.insightClient = insightClient;
     }
 
-    public List<Training> getTrainingsFromLastTwoYears(String userId) {
+    public List<Training> getTrainingsFromCurrentAndLastYear(String userId) {
         List<TrainingResponse> trainingResponseList = insightClient.getTrainings(userId);
         return trainingResponseList.stream()
-                .filter(trainingResponse -> trainingHasHappenedInTheLastTwoYears(trainingResponse.getYear()))
-                .map(trainingResponse -> trainingResponse.getTraining())
+                .filter(trainingResponse -> trainingHasHappenedInCurrentOrLastYear(trainingResponse.getYear()))
+                .map(TrainingResponse::getTraining)
                 .collect(Collectors.toList());
     }
 
-    private boolean trainingHasHappenedInTheLastTwoYears(long year) {
-        return year >= LocalDate.now().minusYears(year - 1).getYear();
+    private boolean trainingHasHappenedInCurrentOrLastYear(long year) {
+        return year > LocalDate.now().minusYears(2).getYear();
     }
 }
