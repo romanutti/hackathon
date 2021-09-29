@@ -114,7 +114,7 @@ class BadgeServiceTest {
 
     @Test
     void computeMatchingBadge_hackathonKeywordMatched_returnOptionalOfHackathonBadge() {
-        Training aHackathonTraining = new Training("Full Stack Java Hachathon", 0, List.of(), 2);
+        Training aHackathonTraining = new Training("Full Stack Java Hackathon", 0, List.of(), 2);
 
         Optional<Badge> result = testee.computeMatchingBadge(aHackathonTraining);
 
