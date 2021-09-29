@@ -101,5 +101,9 @@ export class UserComponent implements OnChanges {
   open() {
     const modalRef = this.modalService.open(RatingComponent);
     modalRef.componentInstance.userInfo = this.userInfo;
+    modalRef.result.then(() => {
+      this.loadBadges();
+      this.loadSkills();
+    });
   }
 }
