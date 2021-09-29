@@ -32,7 +32,6 @@ export class UserComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (this.userInfo) {
       this.userInfo = changes.userInfo.currentValue;
-      this.loadUserInfo();
       this.loadBadges();
       this.loadSkills();
     }
