@@ -1,6 +1,7 @@
 package ch.zuehlke.fullstack.hackathon.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -11,16 +12,18 @@ public class Skill {
     private final String name;
     // todo: find out how to map this
     private final long pictureId = 1;
-    // todo: calculate rank via trainings
-    private int rank;
+    private final Level level;
+    private long points = 0;
 
     @JsonCreator
     public Skill(@JsonProperty("Id") long skillId,
                  @JsonProperty("ShortDescription") String description,
-                 @JsonProperty("Name") String name) {
+                 @JsonProperty("Name") String name,
+                 @JsonProperty("ExperienceText") String text) {
         this.skillId = skillId;
         this.description = description;
         this.name = name;
+        this.level = Level.fromString(text);
     }
 
     @JsonProperty("skillId")
@@ -43,12 +46,18 @@ public class Skill {
         return pictureId;
     }
 
-    @JsonProperty("rank")
-    public int getRank() {
-        return rank;
+    @JsonProperty("points")
+    public long getPoints() {
+        return points;
     }
 
-    public void setRank(int rank) {
-        this.rank = rank;
+    @JsonIgnore
+    public void addPoints(long points) {
+        this.points += points;
+    }
+
+    @JsonIgnore
+    public Level getLevel() {
+        return level;
     }
 }
