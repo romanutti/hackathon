@@ -69,15 +69,15 @@ public class BadgeService {
         return earnedBadges;
     }
 
-    private void addBadgesForJavaKnowledge(List<Badge> earnedBadges, int count) {
+    void addBadgesForJavaKnowledge(List<Badge> earnedBadges, int count) {
         if (count > 10) earnedBadges.add(availableBadges.get(BadgeType.SKILLS).get(0));
     }
 
-    private void addBadgesForWebKnowledge(List<Badge> earnedBadges, int count) {
+    void addBadgesForWebKnowledge(List<Badge> earnedBadges, int count) {
         if (count > 10) earnedBadges.add(availableBadges.get(BadgeType.SKILLS).get(1));
     }
 
-    private void addBadgesForRatings(List<Badge> earnedBadges, List<Rating> ratings) {
+    void addBadgesForRatings(List<Badge> earnedBadges, List<Rating> ratings) {
         for (Rating rating : ratings) {
             if (rating.getPoints() >= 250) {
                 earnedBadges.add(availableBadges.get(BadgeType.RATING).get(0));
@@ -86,7 +86,7 @@ public class BadgeService {
         }
     }
 
-    private Optional<Badge> computeMatchingBadge(Training training) {
+    Optional<Badge> computeMatchingBadge(Training training) {
         if (matchesHackathonKeywords(training.getName())) {
             return Optional.of(availableBadges.get(BadgeType.LEARNING).get(0));
         }
