@@ -38,7 +38,7 @@
               <span class="skill-podium-step">
                 <span
                   class="skill-podium-step-value-wrapper"
-                  [style.height]="(skill.rank * 3) + 'rem'">
+                  [style.height]="(skill.rank > 0 ? skill.rank  * 3 : 3) + 'rem'">
                   <span class="skill-podium-step-value">
                     {{skill.name}}
                   </span>

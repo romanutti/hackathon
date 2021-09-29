@@ -72,7 +72,7 @@ export class UserComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.loadUserInfo();
     this.loadBadges();
-    //this.loadSkills();
+    this.loadSkills();
   }
 
   ngOnChanges(changes: SimpleChanges) {
