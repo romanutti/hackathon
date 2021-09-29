@@ -3,7 +3,6 @@ import {
   Component,
   Input,
   OnChanges,
-  OnInit,
   SimpleChanges,
 } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -18,50 +17,11 @@ import { AppService } from '../app.service';
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss'],
 })
-export class UserComponent implements OnInit, OnChanges {
+export class UserComponent implements OnChanges {
   @Input()
-  userId: string = '';
-
-  mockSkills = [
-    {
-      skillId: 123,
-      description: "some skill",
-      name: "skill",
-      pictureId: "123",
-      rank: 2,
-    },
-    {
-      skillId: 123,
-      description: "some skill",
-      name: "skill",
-      pictureId: "123",
-      rank: 4,
-    },
-    {
-      skillId: 123,
-      description: "some skill",
-      name: "skillqwertzuiojhgfdsdfghjlk",
-      pictureId: "123",
-      rank: 3,
-    },
-    {
-      skillId: 123,
-      description: "some skill",
-      name: "skill",
-      pictureId: "123",
-      rank: 1,
-    },
-  ]
-
-  mockBadges: BadgeDto[] = [
-    {id: "1", description: "Hackathon"},
-    {id: "2", description: "Java King"},
-    {id: "3", description: "5 Votes"},
-  ];
-
   userInfo: UserInfoDto | undefined;
-  badges: BadgeDto[] | undefined = this.mockBadges;
-  skills: SkillDto[] | undefined = this.sortSkills(this.mockSkills);
+  badges: BadgeDto[] | undefined;
+  skills: SkillDto[] | undefined;
   httpError: UserError = {};
 
   constructor(
@@ -69,41 +29,41 @@ export class UserComponent implements OnInit, OnChanges {
     private modalService: NgbModal
   ) {}
 
-  ngOnInit(): void {
-    this.loadUserInfo();
-    this.loadBadges();
-    this.loadSkills();
-  }
-
   ngOnChanges(changes: SimpleChanges) {
-    this.userId = changes.userId.currentValue;
-    this.loadUserInfo();
-    this.loadBadges();
-    this.loadSkills();
+    if (this.userInfo) {
+      this.userInfo = changes.userInfo.currentValue;
+      this.loadUserInfo();
+      this.loadBadges();
+      this.loadSkills();
+    }
   }
 
   loadUserInfo() {
-    this.appService.getUserInfo(this.userId).subscribe({
-      next: (userInfo) => {
-        this.userInfo = userInfo;
-        this.httpError.userInfoError = undefined;
-      },
-      error: (error: HttpErrorResponse) => {
-        this.httpError.userInfoError = error.status;
-      },
-    });
+    if (this.userInfo) {
+      this.appService.getUserInfo(this.userInfo.id).subscribe({
+        next: (userInfo) => {
+          this.userInfo = userInfo;
+          this.httpError.userInfoError = undefined;
+        },
+        error: (error: HttpErrorResponse) => {
+          this.httpError.userInfoError = error.status;
+        },
+      });
+    }
   }
 
   loadBadges() {
-    this.appService.getBadges(this.userId).subscribe({
-      next: (badges) => {
-        this.badges = badges;
-        this.httpError.badgesError = undefined;
-      },
-      error: (error: HttpErrorResponse) => {
-        this.httpError.badgesError = error.status;
-      },
-    });
+    if (this.userInfo) {
+      this.appService.getBadges(this.userInfo.id).subscribe({
+        next: (badges) => {
+          this.badges = badges;
+          this.httpError.badgesError = undefined;
+        },
+        error: (error: HttpErrorResponse) => {
+          this.httpError.badgesError = error.status;
+        },
+      });
+    }
   }
 
   sortSkills(skills: SkillDto[]): SkillDto[] {
@@ -120,16 +80,18 @@ export class UserComponent implements OnInit, OnChanges {
   }
 
   loadSkills() {
-    this.appService.getSkills(this.userId).subscribe({
-      next: (skills) => {
-        const sortedSkills: SkillDto[] = this.sortSkills(skills);
-        this.skills = sortedSkills;
-        this.httpError.skillsError = undefined;
-      },
-      error: (error: HttpErrorResponse) => {
-        this.httpError.skillsError = error.status;
-      },
-    });
+    if (this.userInfo) {
+      this.appService.getSkills(this.userInfo.id).subscribe({
+        next: (skills) => {
+          const sortedSkills: SkillDto[] = this.sortSkills(skills);
+          this.skills = sortedSkills;
+          this.httpError.skillsError = undefined;
+        },
+        error: (error: HttpErrorResponse) => {
+          this.httpError.skillsError = error.status;
+        },
+      });
+    }
   }
 
   open(content: any) {
