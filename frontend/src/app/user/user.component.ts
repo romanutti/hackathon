@@ -3,7 +3,6 @@ import {
   Component,
   Input,
   OnChanges,
-  OnInit,
   SimpleChanges,
 } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -66,11 +65,30 @@ export class UserComponent implements OnChanges {
     }
   }
 
+  sortSkills(skills: SkillDto[]): SkillDto[] {
+    let sortedSkills: SkillDto[] = [...skills.sort((a, b) => b.points - a.points)];
+    if (skills.length > 3) {
+      sortedSkills = sortedSkills.splice(0, 3);
+    }
+
+    sortedSkills = sortedSkills.map((skill, index) => {
+        skill.rank = index + 1;
+        return skill;
+    });
+
+    const firstValue = sortedSkills[0];
+    sortedSkills[0] = sortedSkills[1];
+    sortedSkills[1] = firstValue;
+
+    return sortedSkills;
+  }
+
   loadSkills() {
     if (this.userInfo) {
       this.appService.getSkills(this.userInfo.id).subscribe({
         next: (skills) => {
-          this.skills = skills;
+          const sortedSkills: SkillDto[] = this.sortSkills(skills);
+          this.skills = sortedSkills;
           this.httpError.skillsError = undefined;
         },
         error: (error: HttpErrorResponse) => {

@@ -37,6 +37,7 @@ describe('UserComponent', () => {
       description:
         'JavaScript (JS) is a lightweight interpreted or JIT-compiled programming language with first-class functions.',
       pictureId: 'skill89',
+      points: 1,
       rank: 1,
     },
   ];
@@ -127,6 +128,69 @@ describe('UserComponent', () => {
       expect(component.httpError.userInfoError).toBeUndefined();
       expect(component.httpError.badgesError).toBeUndefined();
       expect(component.httpError.skillsError).toBeUndefined();
+    });
+  });
+
+  describe('sort skills', () => {
+    const skills: SkillDto[] = [
+      {
+        skillId: 123,
+        description: "some skill",
+        name: "skill",
+        pictureId: "123",
+        points: 2,
+        rank: 0,
+      },
+      {
+        skillId: 123,
+        description: "some skill",
+        name: "skill",
+        pictureId: "123",
+        points: 1,
+        rank: 0,
+      },
+      {
+        skillId: 123,
+        description: "some skill",
+        name: "skill",
+        pictureId: "123",
+        points: 3,
+        rank: 0,
+      },
+      {
+        skillId: 123,
+        description: "some skill",
+        name: "skill",
+        pictureId: "123",
+        points: 4,
+        rank: 0,
+      },
+    ]
+
+    it('should sort the skills by points', () => {
+      let skillsArray = skills;
+
+      skillsArray = component.sortSkills(skillsArray);
+
+      expect([skillsArray[0].points, skillsArray[1].points, skillsArray[2].points])
+        .toEqual([4, 3, 2]);
+    });
+
+    it('should assign rank', () => {
+      let skillsArray = skills;
+
+      skillsArray = component.sortSkills(skillsArray);
+
+      expect([skillsArray[0].rank, skillsArray[1].rank, skillsArray[2].rank])
+        .toEqual([1, 2, 3]);
+    });
+
+    it('should shrink the skills array to 3 values', () => {
+      let skillsArray = skills;
+
+      skillsArray = component.sortSkills(skillsArray);
+
+      expect(skillsArray.length).toEqual(3);
     });
   });
 });

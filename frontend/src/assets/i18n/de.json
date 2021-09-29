@@ -1,8 +1,9 @@
 {
-  "app.title": "NurEinWeiteresInsightFeature",
+  "app.title": "Nur Ein Weiteres Insight Feature",
   "app.text": "Erhalte Badges für ausserordentliche Skills!",
   "search.text": "Suche Mitarbeitende",
   "user.rate-button.text": "Bewerte mich",
+  "user.best-skill.text": "Beste Skills",
   "user-error.text": "Es gab ein Problem beim Laden Ihrer Benutzerdaten. Bitte versuchen Sie es später...",
   "badge-error.text": "Keine Badges verfügbar `;--",
   "skill-error.text": "Keine Skills gefunden - nichts zu bewerten...",
