@@ -31,6 +31,7 @@ import { RatingComponent } from './user/rating/rating.component';
   ],
   providers: [],
   bootstrap: [AppComponent],
+  entryComponents: [RatingComponent],
 })
 export class AppModule {}
 

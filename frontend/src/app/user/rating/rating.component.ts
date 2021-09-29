@@ -8,6 +8,7 @@ import { RatingError } from 'src/model/rating/RatingError';
 import { SkillDto } from 'src/model/SkillDto';
 import { UserInfoDto } from 'src/model/UserInfoDto';
 import { AppService } from '../../app.service';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-rating',
@@ -30,7 +31,10 @@ export class RatingComponent implements OnInit {
 
   httpError: RatingError = {};
 
-  constructor(private readonly appService: AppService) {}
+  constructor(
+    private readonly appService: AppService,
+    private readonly activeModal: NgbActiveModal
+  ) {}
   ngOnInit(): void {
     this.appService
       .getSkills(this.userInfo.id)
@@ -62,6 +66,9 @@ export class RatingComponent implements OnInit {
       this.appService
         .rateSkills(this.userInfo.id, this.skill.skillId, this.level)
         .subscribe({
+          complete: () => {
+            this.activeModal.close();
+          },
           error: (error: HttpErrorResponse) => {
             this.httpError.ratingError = error.status;
           },
