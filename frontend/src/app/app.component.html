@@ -3,7 +3,7 @@
   <h1 class="title-text" style="color: green">{{ "app.title" | translate }}</h1>
   <p class="slogan-text">{{ "app.text" | translate }}</p>
   <app-search (foundUser)="onUserFound($event)"></app-search>
-  <app-user *ngIf="userInfo" [userId]="userInfo.id"></app-user>
+  <app-user *ngIf="userInfo" [userInfo]="userInfo"></app-user>
   <footer>
     <div class="language-switcher">
       <p>

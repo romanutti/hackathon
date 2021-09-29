@@ -67,9 +67,18 @@ export class UserComponent implements OnChanges {
   }
 
   sortSkills(skills: SkillDto[]): SkillDto[] {
-    let sortedSkills = skills.sort((a, b) => a.rank - b.rank);
+    let sortedSkills: SkillDto[] = [...skills.sort((a, b) => b.points - a.points)];
     if (skills.length > 3) {
       sortedSkills = sortedSkills.splice(0, 3);
+    }
+
+    sortedSkills = sortedSkills.map((skill, index) => {
+        skill.rank = index + 1;
+        return skill;
+    });
+
+    for(let skill of sortedSkills) {
+      console.log(skill.points);
     }
 
     const firstValue = sortedSkills[0];
