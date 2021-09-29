@@ -13,6 +13,7 @@
         <div>
           <img
             class="rounded-circle"
+            alt="profile-picture"
             src="/api/user/pictures/{{userInfo.pictureId}}"
             width="200"
             height="200"
@@ -43,13 +44,12 @@
             <ng-container *ngFor="let skill of skills">
               <span class="skill-podium-step">
                 <span
-                  class="skill-podium-step-value-wrapper"
-                  [style.height]="(skill.rank > 0 ? skill.rank  * 3 : 3) + 'rem'">
+                  class="skill-podium-step-value-wrapper">
                   <span class="skill-podium-step-value">
                     {{skill.name}}
                   </span>
                 </span>
-                <span class="skill-podium-step-block">
+                <span class="skill-podium-step-block" [style.height]="(5 / skill.rank)  + 'rem'">
                   {{skill.rank}}
                 </span>
               </span>

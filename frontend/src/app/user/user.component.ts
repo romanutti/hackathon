@@ -76,10 +76,6 @@ export class UserComponent implements OnChanges {
         return skill;
     });
 
-    for(let skill of sortedSkills) {
-      console.log(skill.points);
-    }
-
     const firstValue = sortedSkills[0];
     sortedSkills[0] = sortedSkills[1];
     sortedSkills[1] = firstValue;
