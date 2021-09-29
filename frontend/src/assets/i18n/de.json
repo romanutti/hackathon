@@ -9,5 +9,9 @@
   "skill-error.text": "Keine Skills gefunden - nichts zu bewerten...",
   "rating.title": "Bewerte {{name}}",
   "rating.search.text": "Suche Skills:",
-  "rating.button.text": "Rating abgeben"
+  "rating.button.text": "Rating abgeben",
+  "footer.question.text": "Neu auf Insight?",
+  "footer.insight.link": "Besuche die Homepage",
+  "footer.transition.text": "oder informier dich über",
+  "footer.readme.link": "die ersten Schritte"
 }

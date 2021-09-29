@@ -9,5 +9,9 @@
   "skill-error.text": "No skills found - nothing to rate here...",
   "rating.title": "Rate {{name}}",
   "rating.search.text": "Search skills:",
-  "rating.button.text": "Submit rating"
+  "rating.button.text": "Submit rating",
+  "footer.question.text": "New to Insight?",
+  "footer.insight.link": "Visit the Homepage",
+  "footer.transition.text": "or read our",
+  "footer.readme.link": "getting started guide"
 }
