@@ -28,10 +28,10 @@ public class BadgeService {
     private Map<BadgeType, List<Badge>> createAvailableBadges() {
         HashMap<BadgeType, List<Badge>> badges = new HashMap<>();
         badges.put(BadgeType.LEARNING, List.of(new Badge(1, "Hackathon")));
-        badges.put(BadgeType.RATING, List.of(new Badge(3, "5 Expert Votes for a skill")));
         badges.put(BadgeType.SKILLS, List.of(new Badge(2, "King of Java"),
-                new Badge(4, "Master of Web Technologies")));
-        badges.put(BadgeType.PROJECT, List.of(new Badge(5, "Practitioner")));
+                new Badge(5, "Master of Web Technologies")));
+        badges.put(BadgeType.RATING, List.of(new Badge(3, "5 Expert Votes for a skill")));
+        badges.put(BadgeType.PROJECT, List.of(new Badge(4, "Practitioner")));
         return badges;
     }
 
