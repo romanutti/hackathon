@@ -34,7 +34,7 @@
               checked
               [(ngModel)]="level"
             />
-            Beginner
+            {{ "rating.beginner.text" | translate }}
           </label>
           <label class="radio-inline">
             <input
@@ -44,7 +44,7 @@
               value="Proficient"
               [(ngModel)]="level"
             />
-            Proficient
+            {{ "rating.proficient.text" | translate }}
           </label>
           <label class="radio-inline">
             <input
@@ -54,7 +54,7 @@
               value="Expert"
               [(ngModel)]="level"
             />
-            Expert
+            {{ "rating.expert.text" | translate }}
           </label>
         </div>
       </form>
