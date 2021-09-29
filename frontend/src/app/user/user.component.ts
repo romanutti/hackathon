@@ -15,9 +15,46 @@ export class UserComponent implements OnInit, OnChanges {
   @Input()
   userId: string = "";
 
+  mockSkills = [
+    {
+      skillId: 123,
+      description: "some skill",
+      name: "skill",
+      pictureId: "123",
+      rank: 2,
+    },
+    {
+      skillId: 123,
+      description: "some skill",
+      name: "skill",
+      pictureId: "123",
+      rank: 4,
+    },
+    {
+      skillId: 123,
+      description: "some skill",
+      name: "skillqwertzuiojhgfdsdfghjlk",
+      pictureId: "123",
+      rank: 3,
+    },
+    {
+      skillId: 123,
+      description: "some skill",
+      name: "skill",
+      pictureId: "123",
+      rank: 1,
+    },
+  ]
+
+  mockBadges: BadgeDto[] = [
+    {id: "1", description: "Hackathon"},
+    {id: "2", description: "Java King"},
+    {id: "3", description: "5 Votes"},
+  ];
+
   userInfo: UserInfoDto | undefined;
-  badges: BadgeDto[] | undefined;
-  skills: SkillDto[] | undefined;
+  badges: BadgeDto[] | undefined = this.mockBadges;
+  skills: SkillDto[] | undefined = this.sortSkills(this.mockSkills);
   httpError: UserError = {};
 
   constructor(private readonly appService: AppService) {}
@@ -25,7 +62,7 @@ export class UserComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.loadUserInfo();
     this.loadBadges();
-    this.loadSkills();
+    //this.loadSkills();
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -63,6 +100,11 @@ export class UserComponent implements OnInit, OnChanges {
     if (skills.length > 3) {
       sortedSkills = sortedSkills.splice(0, 3);
     }
+
+    const firstValue = sortedSkills[0];
+    sortedSkills[0] = sortedSkills[1];
+    sortedSkills[1] = firstValue;
+
     return sortedSkills;
   }
 
@@ -70,6 +112,7 @@ export class UserComponent implements OnInit, OnChanges {
     this.appService.getSkills(this.userId).subscribe({
       next: (skills) => {
         const sortedSkills: SkillDto[] = this.sortSkills(skills);
+        console.log(sortedSkills)
         this.skills = sortedSkills;
       },
       error: (error: HttpErrorResponse) => {
