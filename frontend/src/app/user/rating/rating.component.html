@@ -1,0 +1,74 @@
+<div class="modal-body">
+  <div class="jumbotron">
+    <div class="container-fluid">
+      <div class="row">
+        <h1>Rate {{ userInfo.firstName }}!</h1>
+      </div>
+      <div class="row">
+        <label for="typeahead-basic">Search for a skill:</label>
+        <input
+          id="typeahead-basic"
+          type="text"
+          class="form-control"
+          [(ngModel)]="skill"
+          [ngbTypeahead]="search"
+          [inputFormatter]="formatter"
+          [resultTemplate]="rt"
+        />
+        <hr />
+        <h4>{{ skill?.name }}</h4>
+      </div>
+      <div class="row">
+        {{ skill?.description }}
+      </div>
+      <form class="form-horizontal" role="form">
+        <div class="form-group">
+          <label class="radio-inline">
+            <input
+              type="radio"
+              name="level"
+              id="levelBeginner"
+              value="Beginner"
+              checked
+              [(ngModel)]="level"
+            />
+            Beginner
+          </label>
+          <label class="radio-inline">
+            <input
+              type="radio"
+              name="level"
+              id="levelProficient"
+              value="Proficient"
+              [(ngModel)]="level"
+            />
+            Proficient
+          </label>
+          <label class="radio-inline">
+            <input
+              type="radio"
+              name="level"
+              id="levelExpert"
+              value="Expert"
+              [(ngModel)]="level"
+            />
+            Expert
+          </label>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button
+    class="btn btn-success btn"
+    (click)="rateSkills()"
+    [disabled]="!skill || !level"
+  >
+    Submit rating
+  </button>
+</div>
+
+<ng-template #rt let-r="result" let-t="term">
+  {{ r.name }}
+</ng-template>

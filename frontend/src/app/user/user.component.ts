@@ -1,5 +1,12 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BadgeDto } from 'src/model/BadgeDto';
 import { SkillDto } from 'src/model/SkillDto';
 import { UserError } from 'src/model/user/UserError';
@@ -13,7 +20,7 @@ import { AppService } from '../app.service';
 })
 export class UserComponent implements OnInit, OnChanges {
   @Input()
-  userId: string = "";
+  userId: string = '';
 
   mockSkills = [
     {
@@ -57,7 +64,10 @@ export class UserComponent implements OnInit, OnChanges {
   skills: SkillDto[] | undefined = this.sortSkills(this.mockSkills);
   httpError: UserError = {};
 
-  constructor(private readonly appService: AppService) {}
+  constructor(
+    private readonly appService: AppService,
+    private modalService: NgbModal
+  ) {}
 
   ngOnInit(): void {
     this.loadUserInfo();
@@ -66,17 +76,17 @@ export class UserComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    const newUserId: string = changes.userId.currentValue;
-    if(newUserId) {
-      this.userId = newUserId;
-      this.loadUserInfo()
-    }
+    this.userId = changes.userId.currentValue;
+    this.loadUserInfo();
+    this.loadBadges();
+    this.loadSkills();
   }
 
   loadUserInfo() {
     this.appService.getUserInfo(this.userId).subscribe({
       next: (userInfo) => {
         this.userInfo = userInfo;
+        this.httpError.userInfoError = undefined;
       },
       error: (error: HttpErrorResponse) => {
         this.httpError.userInfoError = error.status;
@@ -88,6 +98,7 @@ export class UserComponent implements OnInit, OnChanges {
     this.appService.getBadges(this.userId).subscribe({
       next: (badges) => {
         this.badges = badges;
+        this.httpError.badgesError = undefined;
       },
       error: (error: HttpErrorResponse) => {
         this.httpError.badgesError = error.status;
@@ -112,12 +123,21 @@ export class UserComponent implements OnInit, OnChanges {
     this.appService.getSkills(this.userId).subscribe({
       next: (skills) => {
         const sortedSkills: SkillDto[] = this.sortSkills(skills);
-        console.log(sortedSkills)
         this.skills = sortedSkills;
+        this.httpError.skillsError = undefined;
       },
       error: (error: HttpErrorResponse) => {
         this.httpError.skillsError = error.status;
       },
     });
+  }
+
+  open(content: any) {
+    this.modalService
+      .open(content, { ariaLabelledBy: 'modal-basic-title' })
+      .result.then(
+        (result) => {},
+        (reason) => {}
+      );
   }
 }
