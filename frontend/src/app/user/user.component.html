@@ -1,7 +1,14 @@
 <div class="jumbotron user-card">
   <div class="container-fluid">
     <div *ngIf="userInfo; else userError" class="container">
-      <p><a href="#" class="btn btn-light btn-lg rate-button" (click)="open(ratingmodal)">Rate me</a></p>
+      <p>
+        <a
+        href="#"
+        class="btn btn-light btn-lg rate-button"
+        (click)="open(ratingmodal)">
+          {{ "user.rate-button.text" | translate }}
+        </a>
+      </p>
       <div class="user-info">
         <div>
           <img
@@ -65,16 +72,18 @@
 
 <ng-template #userError>
   <div class="alert alert-light" role="alert">
-    There was an issue loading your user data. Please try it later...
+    {{ "user-error.text" | translate }}
   </div>
 </ng-template>
 
 <ng-template #badgesError>
-  <div class="alert alert-light" role="alert">No badges available `;--</div>
+  <div class="alert alert-light" role="alert">
+    {{ "badge-error.text" | translate }}
+  </div>
 </ng-template>
 
 <ng-template #skillsError>
   <div class="alert alert-light" role="alert">
-    No skills found - nothing to rate here...
+    {{ "skill-error.text" | translate }}
   </div>
 </ng-template>
