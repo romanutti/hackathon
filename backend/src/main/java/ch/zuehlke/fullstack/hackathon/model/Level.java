@@ -20,4 +20,19 @@ public enum Level {
         }
         return null;
     }
+
+    public static long getPoints(Level level) {
+        if (level == null) return 0;
+        
+        switch (level) {
+            case BEGINNER:
+                return 1;
+            case PROFICIENT:
+                return 10;
+            case EXPERT:
+                return 50;
+            default:
+                return 0;
+        }
+    }
 }

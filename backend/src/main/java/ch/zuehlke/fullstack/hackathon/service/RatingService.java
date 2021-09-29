@@ -21,20 +21,7 @@ public class RatingService {
     }
 
     public void addRating(String userId, long skillId, Level level) {
-        long additionalPoints = getPoints(level);
+        long additionalPoints = Level.getPoints(level);
         repository.insertOrUpdateRating(userId, skillId, additionalPoints);
-    }
-
-    public long getPoints(Level level) {
-        switch (level) {
-            case BEGINNER:
-                return 1;
-            case PROFICIENT:
-                return 10;
-            case EXPERT:
-                return 50;
-            default:
-                return 0;
-        }
     }
 }

@@ -13,7 +13,7 @@ public class Skill {
     // todo: find out how to map this
     private final long pictureId = 1;
     private final Level level;
-    private long points = 0;
+    private long points;
 
     @JsonCreator
     public Skill(@JsonProperty("Id") long skillId,
@@ -24,6 +24,7 @@ public class Skill {
         this.description = description;
         this.name = name;
         this.level = Level.fromString(text);
+        this.points = Level.getPoints(level);
     }
 
     @JsonProperty("skillId")
