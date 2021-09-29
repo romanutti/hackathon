@@ -66,7 +66,7 @@ public class UserController {
     public ResponseEntity<List<Badge>> getBadges(@PathVariable String userId) {
         try {
             List<Badge> response = this.badgeService.getBadges(userId);
-            if (response != null && response.size() > 0) {
+            if (response != null) {
                 return new ResponseEntity<>(response, HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
