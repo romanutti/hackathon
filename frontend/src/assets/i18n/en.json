@@ -3,6 +3,7 @@
   "app.text": "Receive badges for being awesome!",
   "search.text": "Search employee",
   "user.rate-button.text": "Rate me",
+  "user.best-skill.text": "Best skills",
   "user-error.text": "There was an issue loading your user data. Please try it later...",
   "badge-error.text": "No badges available `;--",
   "skill-error.text": "No skills found - nothing to rate here...",
