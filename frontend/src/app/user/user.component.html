@@ -13,12 +13,16 @@
         <div class="col">
           <h1>{{ userInfo.firstName + " " + userInfo.lastName }}</h1>
           <p>{{ userInfo.jobTitle }}</p>
-          <p><a href="#" class="btn btn-success btn-lg">Rate me</a></p>
+          <p>
+            <a href="#" class="btn btn-success btn" (click)="open(ratingmodal)"
+              >Rate me</a
+            >
+          </p>
         </div>
       </div>
       <hr class="m4-4" />
 
-      <div class="row">
+      <div *ngIf="!httpError.badgesError; else badgesError" class="row">
         <div class="row">
           <ng-container *ngFor="let badge of badges">
             <div class="col">
@@ -35,8 +39,25 @@
   </div>
 </div>
 
+<ng-template #ratingmodal let-modal>
+  <app-rating
+    *ngIf="!httpError.skillsError && userInfo; else skillsError"
+    [userInfo]="userInfo"
+  ></app-rating>
+</ng-template>
+
 <ng-template #userError>
   <div class="alert alert-light" role="alert">
     There was an issue loading your user data. Please try it later...
+  </div>
+</ng-template>
+
+<ng-template #badgesError>
+  <div class="alert alert-light" role="alert">No badges available `;--</div>
+</ng-template>
+
+<ng-template #skillsError>
+  <div class="alert alert-light" role="alert">
+    No skills found - nothing to rate here...
   </div>
 </ng-template>
