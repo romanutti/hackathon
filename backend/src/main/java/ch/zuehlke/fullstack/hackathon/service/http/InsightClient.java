@@ -76,7 +76,7 @@ public class InsightClient {
                 .buildAndExpand(URLEncoder.encode(pictureId, StandardCharsets.UTF_8))
                 .toUriString();
 
-        List<HttpMessageConverter<?>> converters = new ArrayList<>();
+        List<HttpMessageConverter<?>> converters = this.restTemplate.getMessageConverters();
         converters.add(new ByteArrayHttpMessageConverter());
         this.restTemplate.setMessageConverters(converters);
 
