@@ -52,6 +52,7 @@ export class UserComponent implements OnChanges {
   }
 
   loadBadges() {
+    this.badges = undefined;
     if (this.userInfo) {
       this.appService.getBadges(this.userInfo.id).subscribe({
         next: (badges) => {
@@ -84,6 +85,7 @@ export class UserComponent implements OnChanges {
   }
 
   loadSkills() {
+    this.skills = undefined;
     if (this.userInfo) {
       this.appService.getSkills(this.userInfo.id).subscribe({
         next: (skills) => {
