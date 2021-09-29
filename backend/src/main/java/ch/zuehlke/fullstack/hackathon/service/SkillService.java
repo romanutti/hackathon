@@ -23,21 +23,25 @@ public class SkillService {
 
     public List<Skill> getSkillsWithCalculatedPoints(String userId) {
         HashMap<Long, Skill> skillMap = new HashMap<>();
-        
+
         List<Skill> insightSkills = insightClient.getSkills(userId);
         insightSkills.forEach(skill -> skillMap.put(skill.getSkillId(), skill));
-        
+
         List<Rating> ratings = ratingService.getRatings(userId);
-        for(Rating rating : ratings) {
+        addPointsFromRatingToSkills(skillMap, ratings);
+
+        // add training: each training skill will be rated with +5
+
+        return new ArrayList<>(skillMap.values());
+    }
+
+    private void addPointsFromRatingToSkills(HashMap<Long, Skill> skillMap, List<Rating> ratings) {
+        for (Rating rating : ratings) {
             Skill existingSkill = skillMap.get(rating.getSkillId());
-            if(existingSkill != null) {
+            if (existingSkill != null) {
                 existingSkill.addPoints(rating.getPoints());
                 skillMap.replace(rating.getSkillId(), existingSkill);
             }
         }
-        
-        // add training: each training skill will be rated with +5
-        
-        return new ArrayList<>(skillMap.values());
     }
 }
